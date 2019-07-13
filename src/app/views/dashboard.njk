@@ -1,0 +1,34 @@
+{% extends "_layouts/default.njk" %}
+
+{% block body %}
+<div class="content">
+  <strong>Olá  {{user.name}} </strong>
+  {% if user.provider %}
+    {% for appointment in appointments %}
+      <li class="provider">
+        <div>
+          <img src="/files/{{appointment.user.avatar}}" alt="">
+         <strong>{{ appointment.user.name }}
+         <br> {{ appointment.date | date("HH:mm") }}
+         </strong>
+        </div>
+      </li>
+    {% endfor %}
+
+  {% else %}
+  <p>Inicie um agendamento escolhendo um profissional abaixo:</p>
+  <ul class="providers">
+    {% for provider in providers %}
+      <li class="provider">
+        <div>
+          <img src="/files/{{provider.avatar}}" alt="">
+          <strong>{{provider.name}}</strong>
+        </div>
+        <a href="/app/appointments/new/{{provider.id}}">+</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <a class="logout" href="/app/logout">Sair</a>
+</div>
+{% endblock %}
